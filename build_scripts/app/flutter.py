@@ -107,6 +107,8 @@ class FlutterBuilder(Builder):
             "build",
             self.build_type[self.system],
         ]
+        if self.system in ("ios", "macos"):
+            cmd.append("--no-codesign")
         cmd.extend(self.dart_defines())
         run_command(cmd)
 
