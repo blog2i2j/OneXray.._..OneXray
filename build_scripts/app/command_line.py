@@ -35,16 +35,31 @@ def is_arm64() -> bool:
 def get_env() -> dict[str, str]:
     my_env = os.environ.copy()
     env_path = my_env["PATH"]
+    path_entries = []
     home_dir = str(Path.home())
+    flutter_root = my_env.get("FLUTTER_ROOT")
+    if flutter_root:
+        path_entries.append(os.path.join(flutter_root, "bin"))
     flutter_home = os.path.join(home_dir, "lib", "flutter", "bin")
     go_home = os.path.join(home_dir, "go", "bin")
-    env_path = f"{flutter_home}:{go_home}:{env_path}"
+    path_entries.extend([flutter_home, go_home])
     if is_macos():
-        env_path = f"/opt/homebrew/bin:{env_path}"
+        path_entries.insert(0, "/opt/homebrew/bin")
     if is_linux():
         pub_cache = os.path.join(home_dir, ".pub-cache", "bin")
         go_lib = os.path.join(home_dir, "lib", "go", "bin")
-        env_path = f"{pub_cache}:{go_lib}:{env_path}"
+        path_entries.extend([pub_cache, go_lib])
+    if is_windows():
+        pub_cache_root = my_env.get(
+            "PUB_CACHE",
+            os.path.join(
+                my_env.get("LOCALAPPDATA", os.path.join(home_dir, "AppData", "Local")),
+                "Pub",
+                "Cache",
+            ),
+        )
+        path_entries.append(os.path.join(pub_cache_root, "bin"))
+    env_path = os.pathsep.join([*path_entries, env_path])
     my_env["PATH"] = env_path
     return my_env
 
