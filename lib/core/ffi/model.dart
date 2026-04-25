@@ -9,7 +9,6 @@ class RunXrayConfig {
   String? dns;
   String? bindInterface;
   String? datDir;
-  String? mphCachePath;
   String? configPath;
 
   RunXrayConfig(
@@ -18,7 +17,6 @@ class RunXrayConfig {
     this.dns,
     this.bindInterface,
     this.datDir,
-    this.mphCachePath,
     this.configPath,
   );
 

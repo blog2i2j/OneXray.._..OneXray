@@ -56,9 +56,6 @@ abstract class BridgeHostApi {
   @async
   String xrayVersion();
 
-  @async
-  String buildMphCache(String base64Text);
-
   //platform======================
   @async
   bool checkVpnPermission();

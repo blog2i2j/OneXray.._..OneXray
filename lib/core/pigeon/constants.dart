@@ -7,7 +7,6 @@ class VpnConstants {
   static const randomPort = "0";
 
   static String get datDir => p.join(AppHostApi().tunFilesDir, "dat");
-  static String get mphCachePath => p.join(datDir, "matcher.cache");
   static const systemGeoTimestamp = "timestamp.txt";
 
   static String get runDir => p.join(AppHostApi().tunFilesDir, "run");

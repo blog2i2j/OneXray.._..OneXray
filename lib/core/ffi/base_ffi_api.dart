@@ -112,10 +112,6 @@ abstract class BaseFfiApi {
   Future<String> xrayVersion() async {
     return _sharedIsolate.compute(_cgoXrayVersion, 0);
   }
-
-  Future<String> buildMphCache(String base64Text) async {
-    return _sharedIsolate.compute(_cgoBuildMphCache, base64Text);
-  }
 }
 
 class _CoreLib {
@@ -255,16 +251,6 @@ String _cgoStopXray(int _) {
 @isolateManagerSharedWorker
 String _cgoXrayVersion(int _) {
   final resPointer = _CoreLib()._lib.CGoXrayVersion();
-  final res = _convertPointerToString(resPointer);
-  return res;
-}
-
-@pragma('vm:entry-point')
-@isolateManagerSharedWorker
-String _cgoBuildMphCache(String base64Text) {
-  final req = _convertStringToPointer(base64Text);
-  final resPointer = _CoreLib()._lib.CGoBuildMphCache(req);
-  calloc.free(req);
   final res = _convertPointerToString(resPointer);
   return res;
 }

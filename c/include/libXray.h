@@ -97,7 +97,6 @@ extern char* CGoTestXray(char* base64Text);
 extern char* CGoRunXray(char* base64Text);
 extern char* CGoStopXray(void);
 extern char* CGoXrayVersion(void);
-extern char* CGoBuildMphCache(char* base64Text);
 
 #ifdef __cplusplus
 }

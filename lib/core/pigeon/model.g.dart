@@ -95,15 +95,10 @@ Map<String, dynamic> _$PingRequestToJson(PingRequest instance) =>
     };
 
 RunXrayRequest _$RunXrayRequestFromJson(Map<String, dynamic> json) =>
-    RunXrayRequest(
-      json['datDir'] as String?,
-      json['mphCachePath'] as String?,
-      json['configPath'] as String?,
-    );
+    RunXrayRequest(json['datDir'] as String?, json['configPath'] as String?);
 
 Map<String, dynamic> _$RunXrayRequestToJson(RunXrayRequest instance) =>
     <String, dynamic>{
       'datDir': ?instance.datDir,
-      'mphCachePath': ?instance.mphCachePath,
       'configPath': ?instance.configPath,
     };

@@ -293,7 +293,6 @@ interface BridgeHostApi {
   fun runXray(base64Text: String, callback: (Result<String>) -> Unit)
   fun stopXray(callback: (Result<String>) -> Unit)
   fun xrayVersion(callback: (Result<String>) -> Unit)
-  fun buildMphCache(base64Text: String, callback: (Result<String>) -> Unit)
   fun checkVpnPermission(callback: (Result<Boolean>) -> Unit)
   fun getInstalledApps(callback: (Result<List<AndroidAppInfo>>) -> Unit)
   fun useSystemExtension(callback: (Result<Boolean>) -> Unit)
@@ -561,26 +560,6 @@ interface BridgeHostApi {
         if (api != null) {
           channel.setMessageHandler { _, reply ->
             api.xrayVersion{ result: Result<String> ->
-              val error = result.exceptionOrNull()
-              if (error != null) {
-                reply.reply(MessagesPigeonUtils.wrapError(error))
-              } else {
-                val data = result.getOrNull()
-                reply.reply(MessagesPigeonUtils.wrapResult(data))
-              }
-            }
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.onexray.BridgeHostApi.buildMphCache$separatedMessageChannelSuffix", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val base64TextArg = args[0] as String
-            api.buildMphCache(base64TextArg) { result: Result<String> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(MessagesPigeonUtils.wrapError(error))

@@ -102,10 +102,9 @@ class PingRequest {
 @JsonSerializable(explicitToJson: true, includeIfNull: false)
 class RunXrayRequest {
   String? datDir;
-  String? mphCachePath;
   String? configPath;
 
-  RunXrayRequest(this.datDir, this.mphCachePath, this.configPath);
+  RunXrayRequest(this.datDir, this.configPath);
 
   factory RunXrayRequest.fromJson(Map<String, dynamic> json) =>
       _$RunXrayRequestFromJson(json);

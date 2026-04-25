@@ -270,7 +270,7 @@ class AppHostApi {
 
   Future<String> testXray(String datDir, String configPath) async {
     try {
-      final request = RunXrayRequest(datDir, null, configPath).toJson();
+      final request = RunXrayRequest(datDir, configPath).toJson();
       final base64Text = JsonTool.encodeJsonToBase64(request);
       final res = await _testXray(base64Text);
       final resp = parseCallResponse(res);
@@ -299,13 +299,9 @@ class AppHostApi {
     }
   }
 
-  Future<String> runXray(
-    String datDir,
-    String mphCachePath,
-    String configPath,
-  ) async {
+  Future<String> runXray(String datDir, String configPath) async {
     try {
-      final request = RunXrayRequest(datDir, mphCachePath, configPath).toJson();
+      final request = RunXrayRequest(datDir, configPath).toJson();
       final base64Text = JsonTool.encodeJsonToBase64(request);
       final res = await _runXray(base64Text);
       final resp = parseCallResponse(res);
@@ -379,39 +375,6 @@ class AppHostApi {
       return WindowsFfiApi().xrayVersion();
     } else {
       return _api.xrayVersion();
-    }
-  }
-
-  Future<String> buildMphCache(
-    String datDir,
-    String mphCachePath,
-    String configPath,
-  ) async {
-    try {
-      final request = RunXrayRequest(datDir, mphCachePath, configPath).toJson();
-      final base64Text = JsonTool.encodeJsonToBase64(request);
-      final res = await _buildMphCache(base64Text);
-      final resp = parseCallResponse(res);
-      if (resp.success != null) {
-        if (resp.success!) {
-          return "";
-        } else {
-          if (resp.error != null) {
-            return resp.error!;
-          }
-        }
-      }
-    } catch (_) {}
-    return _errorResult;
-  }
-
-  Future<String> _buildMphCache(String base64Text) async {
-    if (AppPlatform.isLinux) {
-      return LinuxFfiApi().buildMphCache(base64Text);
-    } else if (AppPlatform.isWindows) {
-      return WindowsFfiApi().buildMphCache(base64Text);
-    } else {
-      return _api.buildMphCache(base64Text);
     }
   }
 

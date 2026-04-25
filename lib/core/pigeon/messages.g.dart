@@ -468,25 +468,6 @@ class BridgeHostApi {
     return pigeonVar_replyValue! as String;
   }
 
-  Future<String> buildMphCache(String base64Text) async {
-    final pigeonVar_channelName = 'dev.flutter.pigeon.onexray.BridgeHostApi.buildMphCache$pigeonVar_messageChannelSuffix';
-    final pigeonVar_channel = BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[base64Text]);
-    final pigeonVar_replyList = await pigeonVar_sendFuture as List<Object?>?;
-
-    final Object? pigeonVar_replyValue = _extractReplyValueOrThrow(
-        pigeonVar_replyList,
-        pigeonVar_channelName,
-        isNullValid: false,
-    )
-    ;
-    return pigeonVar_replyValue! as String;
-  }
-
   Future<bool> checkVpnPermission() async {
     final pigeonVar_channelName = 'dev.flutter.pigeon.onexray.BridgeHostApi.checkVpnPermission$pigeonVar_messageChannelSuffix';
     final pigeonVar_channel = BasicMessageChannel<Object?>(

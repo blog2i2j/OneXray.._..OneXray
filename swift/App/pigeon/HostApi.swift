@@ -139,16 +139,6 @@ class AppHostApi: BridgeHostApi {
             callResponse(res, completion: completion)
         }
     }
-    
-    func buildMphCache(base64Text: String, completion: @escaping (Result<String, any Error>) -> Void) {
-        Task {
-            let res = base64Text.withCString { p in
-                let p0 = UnsafeMutablePointer(mutating: p)
-                return CGoBuildMphCache(p0)
-            }
-            callResponse(res, completion: completion)
-        }
-    }
 
     private func callResponse(_ res: UnsafeMutablePointer<CChar>?, completion: @escaping (Result<String, any Error>) -> Void) {
         if let res = res {

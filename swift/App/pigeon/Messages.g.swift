@@ -283,7 +283,6 @@ protocol BridgeHostApi {
   func runXray(base64Text: String, completion: @escaping (Result<String, Error>) -> Void)
   func stopXray(completion: @escaping (Result<String, Error>) -> Void)
   func xrayVersion(completion: @escaping (Result<String, Error>) -> Void)
-  func buildMphCache(base64Text: String, completion: @escaping (Result<String, Error>) -> Void)
   func checkVpnPermission(completion: @escaping (Result<Bool, Error>) -> Void)
   func getInstalledApps(completion: @escaping (Result<[AndroidAppInfo], Error>) -> Void)
   func useSystemExtension(completion: @escaping (Result<Bool, Error>) -> Void)
@@ -522,23 +521,6 @@ class BridgeHostApiSetup {
       }
     } else {
       xrayVersionChannel.setMessageHandler(nil)
-    }
-    let buildMphCacheChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.onexray.BridgeHostApi.buildMphCache\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      buildMphCacheChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let base64TextArg = args[0] as! String
-        api.buildMphCache(base64Text: base64TextArg) { result in
-          switch result {
-          case .success(let res):
-            reply(wrapResult(res))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
-        }
-      }
-    } else {
-      buildMphCacheChannel.setMessageHandler(nil)
     }
     let checkVpnPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.onexray.BridgeHostApi.checkVpnPermission\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

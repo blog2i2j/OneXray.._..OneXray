@@ -188,14 +188,6 @@ class AppHostApi(
         }
     }
 
-
-    override fun buildMphCache(base64Text: String, callback: (Result<String>) -> Unit) {
-        scope.launch {
-            val res = LibXray.buildMphCache(base64Text)
-            callback(Result.success(res))
-        }
-    }
-
     // android
     override fun checkVpnPermission(callback: (Result<Boolean>) -> Unit) {
         scope.launch {

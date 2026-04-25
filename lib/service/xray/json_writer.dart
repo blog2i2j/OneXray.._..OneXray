@@ -52,12 +52,4 @@ extension XrayJsonWriter on XrayJson {
     await _writeToPath(configPath);
     return configPath;
   }
-
-  static Future<void> buildMphCache(
-    String datDir,
-    String mphCachePath,
-    String configPath,
-  ) async {
-    await AppHostApi().buildMphCache(datDir, mphCachePath, configPath);
-  }
 }

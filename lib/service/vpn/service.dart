@@ -334,25 +334,7 @@ final class VpnService {
   }
 
   Future<String?> _makeRunXrayRequest(String configPath) async {
-    String? mphCachePath;
-    if (AppPlatform.isIOS) {
-      final error = await AppHostApi().buildMphCache(
-        VpnConstants.datDir,
-        VpnConstants.mphCachePath,
-        configPath,
-      );
-      if (error.isNotEmpty) {
-        ygLogger("Build mph cache error: $error");
-        return null;
-      }
-      mphCachePath = VpnConstants.mphCachePath;
-    }
-
-    final xrayParam = RunXrayRequest(
-      VpnConstants.datDir,
-      mphCachePath,
-      configPath,
-    ).toJson();
+    final xrayParam = RunXrayRequest(VpnConstants.datDir, configPath).toJson();
 
     final coreBase64Text = JsonTool.encodeJsonToBase64(xrayParam);
     return coreBase64Text;
