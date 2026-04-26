@@ -11,7 +11,7 @@ extension ConfigReader on CoreConfigData {
     if (type != null) {
       switch (type) {
         case CoreConfigType.outbound:
-          tags.addAll(_readOutboundTags());
+          tags.add(_readOutboundTags());
           break;
         default:
           break;
@@ -25,13 +25,8 @@ extension ConfigReader on CoreConfigData {
     return tags;
   }
 
-  List<String> _readOutboundTags() {
-    final tags = <String>[];
-    final tag = this.tags.split(",");
-    if (tag.length == 3) {
-      tags.addAll(tag);
-    }
-    return tags;
+  String _readOutboundTags() {
+    return tags.replaceAll(",", " | ");
   }
 
   String _readDelayTag(BuildContext context) {
