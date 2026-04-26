@@ -198,10 +198,18 @@ Map<String, dynamic> _$XrayInboundSniffingToJson(
 };
 
 XrayInboundTun _$XrayInboundTunFromJson(Map<String, dynamic> json) =>
-    XrayInboundTun(json['name'] as String?, (json['MTU'] as num?)?.toInt());
+    XrayInboundTun(
+      json['name'] as String?,
+      (json['MTU'] as num?)?.toInt(),
+      json['autoOutboundsInterface'] as String?,
+    );
 
 Map<String, dynamic> _$XrayInboundTunToJson(XrayInboundTun instance) =>
-    <String, dynamic>{'name': ?instance.name, 'MTU': ?instance.mtu};
+    <String, dynamic>{
+      'name': ?instance.name,
+      'MTU': ?instance.mtu,
+      'autoOutboundsInterface': ?instance.autoOutboundsInterface,
+    };
 
 XrayOutbound _$XrayOutboundFromJson(Map<String, dynamic> json) => XrayOutbound(
   json['name'] as String?,

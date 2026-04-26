@@ -52,6 +52,25 @@ class XrayRawFix {
         outbound["streamSettings"] = <String, dynamic>{"sockopt": sockopt};
       }
     }
+
+    final List<dynamic>? inbounds = jsonMap["inbounds"];
+    if (inbounds == null) {
+      return;
+    }
+    for (final inbound in inbounds) {
+      if (inbound["tag"] == RoutingInboundTag.tunIn.name &&
+          inbound["protocol"] == XrayInboundProtocol.tun.name) {
+        final settings = inbound["settings"];
+        if (settings != null) {
+          settings["autoOutboundsInterface"] = bindInterface;
+        } else {
+          inbound["settings"] = <String, dynamic>{
+            "autoOutboundsInterface": bindInterface,
+          };
+        }
+        break;
+      }
+    }
   }
 
   static void _removeConfigInterface(Map<String, dynamic> jsonMap) {

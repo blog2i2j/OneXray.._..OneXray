@@ -52,7 +52,7 @@ extension XrayInboundSniffingStandard on XrayInboundSniffing {
 }
 
 extension XrayInboundTunStandard on XrayInboundTun {
-  static XrayInboundTun get standard => XrayInboundTun(null, null);
+  static XrayInboundTun get standard => XrayInboundTun(null, null, null);
 }
 
 extension XrayOutboundStandard on XrayOutbound {

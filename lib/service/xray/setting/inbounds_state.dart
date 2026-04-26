@@ -56,11 +56,15 @@ class InboundTunState {
 class InboundTunSettingsState {
   final name = "OneXrayTun";
   final mtu = 1500;
+  var autoOutboundsInterface = "";
 
   XrayInboundTun get xrayJson {
     final settings = XrayInboundTunStandard.standard;
     settings.name = name;
     settings.mtu = mtu;
+    if (autoOutboundsInterface.isNotEmpty) {
+      settings.autoOutboundsInterface = autoOutboundsInterface;
+    }
     return settings;
   }
 }

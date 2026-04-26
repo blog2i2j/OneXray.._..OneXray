@@ -193,7 +193,12 @@ class XrayInboundSniffing {
   List<String>? destOverride;
   List<String>? domainsExcluded;
 
-  XrayInboundSniffing(this.enabled, this.routeOnly, this.destOverride, this.domainsExcluded);
+  XrayInboundSniffing(
+    this.enabled,
+    this.routeOnly,
+    this.destOverride,
+    this.domainsExcluded,
+  );
 
   factory XrayInboundSniffing.fromJson(Map<String, dynamic> json) =>
       _$XrayInboundSniffingFromJson(json);
@@ -206,8 +211,9 @@ class XrayInboundTun {
   String? name;
   @JsonKey(name: "MTU")
   int? mtu;
+  String? autoOutboundsInterface;
 
-  XrayInboundTun(this.name, this.mtu);
+  XrayInboundTun(this.name, this.mtu, this.autoOutboundsInterface);
 
   factory XrayInboundTun.fromJson(Map<String, dynamic> json) =>
       _$XrayInboundTunFromJson(json);

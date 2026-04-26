@@ -60,6 +60,9 @@ extension XraySettingStateWriter on XraySettingState {
         outbound.interface = interface;
       }
     }
+    if (!EmptyTool.checkString(inbounds.tun.settings.autoOutboundsInterface)) {
+      inbounds.tun.settings.autoOutboundsInterface = interface;
+    }
   }
 
   void _removeSettingInterface() {
